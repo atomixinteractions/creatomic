@@ -1,0 +1,24 @@
+{
+  "name": "adr",
+  "version": "0.0.0-development",
+  "description": "CLI utility for Atomic Design in React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomixinteractions/atomicreact.git"
+  },
+  "author": "Sergey Sova <i.am@lestad.net> (https://lestad.top)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/atomixinteractions/atomicreact/issues"
+  },
+  "homepage": "https://github.com/atomixinteractions/atomicreact#readme",
+  "dependencies": {
+    "babel-generator": "^6.24.0",
+    "babel-template": "^6.23.0",
+    "babel-types": "^6.23.0"
+  }
+}
