@@ -19,6 +19,7 @@
   "dependencies": {
     "babel-generator": "^6.24.0",
     "babel-template": "^6.23.0",
-    "babel-types": "^6.23.0"
+    "babel-types": "^6.23.0",
+    "caporal": "^0.3.0"
   }
 }
