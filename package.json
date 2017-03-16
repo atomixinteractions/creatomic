@@ -2,7 +2,10 @@
   "name": "adr",
   "version": "0.0.0-development",
   "description": "CLI utility for Atomic Design in React",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "bin": {
+    "adr": "bin/adr.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
