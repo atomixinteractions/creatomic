@@ -3,12 +3,6 @@
 const Package = require('../package.json')
 const caporal = require('caporal')
 
-const createComponentCommand = type => caporal
-  .command(`new ${type}`, 'Create new ' + type)
-  .argument('<name>', `Name of your ${type} CamelCased, can have / to set module name`)
-  .action((args, options, logger) => {
-    console.log(`NEW ${type.toUpperCase()}`, args, options)
-  })
 
 caporal
   .version(Package.version)
@@ -20,7 +14,20 @@ caporal
     console.log('INIT', args, options)
   })
 
-;['atom', 'molecule', 'organism', 'template', 'page'].forEach(createComponentCommand)
+const typesAvailable = ['atom', 'molecule', 'organism', 'template', 'page']
+
+caporal
+  .command(`new`, 'Create new component')
+  .argument('<type>', 'One of: atom, molecule, organism, template, page', type => {
+    if (!typesAvailable.includes(type)) {
+      throw new Error(`Unknown type of component.\n\  adr help new`)
+    }
+    return type.toLowerCase()
+  })
+  .argument('<name>', `CamelCased name of your component, can have / to set module name`)
+  .action((args, options, logger) => {
+    console.log(`NEW`, args, options)
+  })
 
 caporal
   .command('new module', 'Generate module structure')
