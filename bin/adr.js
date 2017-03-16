@@ -19,6 +19,7 @@ const typesAvailable = ['atom', 'molecule', 'organism', 'template', 'page']
 caporal
   .command(`new`, 'Create new component')
   .argument('<type>', 'One of: atom, molecule, organism, template, page', typesAvailable)
+  .complete(() => typesAvailable)
   .argument('<name>', `CamelCased name of your component, can have / to set module name`)
   .action((args, options, logger) => {
     console.log(`NEW`, args, options)
