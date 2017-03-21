@@ -1,7 +1,7 @@
 
-const Generator = require('../lib/generator').default
+const VirtualFS = require('../lib/virtualFs').default
 
-const fs = new Generator()
+const fs = new VirtualFS()
 
 fs.recursiveCreateDirs('components/atoms')
 fs.recursiveCreateDirs('components/molecules')

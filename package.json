@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel -d ./lib src",
+    "build": "npm run clean && babel -d ./lib src",
+    "clean": "rimraf lib",
     "dev": "nodemon -w src -w bin -x 'npm run build && node bin/testRun'"
   },
   "repository": {
@@ -30,8 +31,9 @@
     "treeify": "^1.0.1"
   },
   "devDependencies": {
-    "nodemon": "^1.11.0",
     "babel-cli": "^6.24.0",
-    "babel-preset-env": "^1.2.2"
+    "babel-preset-env": "^1.2.2",
+    "nodemon": "^1.11.0",
+    "rimraf": "^2.6.1"
   }
 }

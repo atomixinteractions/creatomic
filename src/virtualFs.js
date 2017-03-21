@@ -7,7 +7,7 @@ import { dir, file, escapePath, simplify, ROOT, DIRECTORY, FILE, patches, patchF
  * @type {Object} GeneratorConfig
  */
 
-export default class Generator {
+export default class VirtualFS {
   /**
    * @member {GeneratorConfig}
    */
