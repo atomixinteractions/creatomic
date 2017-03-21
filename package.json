@@ -7,7 +7,9 @@
     "adr": "bin/adr.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel -d ./lib src",
+    "dev": "nodemon -w src -w bin -x 'npm run build && node bin/testRun'"
   },
   "repository": {
     "type": "git",
@@ -21,8 +23,15 @@
   "homepage": "https://github.com/atomixinteractions/atomicreact#readme",
   "dependencies": {
     "babel-generator": "^6.24.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-template": "^6.23.0",
     "babel-types": "^6.23.0",
-    "caporal": "^0.3.0"
+    "caporal": "^0.3.0",
+    "treeify": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0",
+    "babel-cli": "^6.24.0",
+    "babel-preset-env": "^1.2.2"
   }
 }
