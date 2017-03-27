@@ -37,10 +37,17 @@ export default class VirtualFS {
   tree = dir(ROOT)
 
   patches = []
+  enabledPatches = true
 
 
   constructor(config = {}) {
     this.config = Object.assign({}, defaultConfig, config)
+  }
+
+  addPatch(patch) {
+    if (this.enabledPatches) {
+      this.patches.push(patch)
+    }
   }
 
   /**
@@ -64,7 +71,7 @@ export default class VirtualFS {
 
     dir.contents[filename] = file(filename, content)
 
-    this.patches.push(patchForFile(patches.PATCH_CREATE, path, { content }))
+    this.addPatch(patchForFile(patches.PATCH_CREATE, path, { content }))
   }
 
   /**
@@ -87,7 +94,7 @@ export default class VirtualFS {
 
       if (!current.contents[chunk]) {
         current.contents[chunk] = dir(chunk)
-        this.patches.push(patchForDir(patches.PATCH_CREATE, currentPath.join('/')))
+        this.addPatch(patchForDir(patches.PATCH_CREATE, currentPath.join('/')))
       }
 
       current = current.contents[chunk]
@@ -169,7 +176,7 @@ export default class VirtualFS {
     }
 
     file.content += content
-    this.patches.push(patchForFile(patches.PATCH_APPEND, filePath, { content }))
+    this.addPatch(patchForFile(patches.PATCH_APPEND, filePath, { content }))
     return true
   }
 
@@ -190,7 +197,7 @@ export default class VirtualFS {
     })
     containDir.contents = newContents
 
-    this.patches.push(patchForFile(patches.PATCH_DELETE, path, { file }))
+    this.addPatch(patchForFile(patches.PATCH_DELETE, path, { file }))
     return file
   }
 
@@ -230,7 +237,7 @@ export default class VirtualFS {
     })
     parentDir.contents = newContents
 
-    this.patches.push(patchForDir(patches.PATCH_DELETE, path, { directory: dir }))
+    this.addPatch(patchForDir(patches.PATCH_DELETE, path, { directory: dir }))
     return dir
   }
 
