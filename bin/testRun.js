@@ -18,6 +18,11 @@ fs.appendToFile('components/atoms/Example.js', '\n// Appended content')
 
 fs.appendToFile('modules/example/atoms/FooBar.js', '#!/usr/bin/env node', true)
 
+fs.recursiveCreateDirs('foo/bar/baz')
+fs.recursiveCreateDirs('foo/bar/kaz')
+// fs.recursiveCreateDirs('foo/baz/kaf')
+fs.createFile('foo/baz/kaf/min.foo')
+
 fs.print()
 
 console.log('')
