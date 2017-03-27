@@ -167,4 +167,26 @@ export default class VirtualFS {
     return true
   }
 
+  deleteFile(path) {
+    let chunks = escapePath(path).split('/')
+    let filename = chunks.pop()
+
+    const containDir = this.find(chunks)
+    if (!containDir) return false
+
+    const file = containDir.contents[filename]
+    if (!file) return false
+
+    // delete containDir[filename]
+    const newContents = {}
+    Object.keys(containDir.contents).forEach(name => {
+      if (name === filename) return
+      newContents[name] = containDir.contents[name]
+    })
+    containDir.contents = newContents
+
+    this.patches.push(patchForFile(patches.PATCH_DELETE, path, { file }))
+    return file
+  }
+
 }

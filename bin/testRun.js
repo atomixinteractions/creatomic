@@ -9,19 +9,19 @@ fs.recursiveCreateDirs('components/organisms')
 fs.recursiveCreateDirs('components/templates')
 fs.recursiveCreateDirs('components/pages')
 
-// create atom
-fs.createFile('components/atoms/Example.js', '// template for atom')
-
-fs.createFile('modules/index.js')
-
-fs.appendToFile('components/atoms/Example.js', '\n// Appended content')
-
-fs.appendToFile('modules/example/atoms/FooBar.js', '#!/usr/bin/env node', true)
-
 fs.recursiveCreateDirs('foo/bar/baz')
 fs.recursiveCreateDirs('foo/bar/kaz')
 // fs.recursiveCreateDirs('foo/baz/kaf')
 fs.createFile('foo/baz/kaf/min.foo')
+
+// create atom
+fs.createFile('components/atoms/Example.js', '// template for atom')
+fs.createFile('modules/index.js')
+
+fs.appendToFile('components/atoms/Example.js', '\n// Appended content')
+fs.appendToFile('modules/example/atoms/FooBar.js', '#!/usr/bin/env node', true)
+
+fs.deleteFile('foo/baz/kaf/min.foo')
 
 fs.print()
 

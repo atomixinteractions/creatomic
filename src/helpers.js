@@ -35,13 +35,13 @@ export const simplify = node => {
 }
 
 const PATCH_CREATE = symbol('PATCH_CREATE')
-const PATCH_REMOVE = symbol('PATCH_REMOVE')
+const PATCH_DELETE = symbol('PATCH_DELETE')
 const PATCH_REPLACE_CONTENT = symbol('PATCH_REPLACE_CONTENT')
 const PATCH_APPEND = symbol('PATCH_APPEND')
 const PATCH_RENAME = symbol('PATCH_RENAME')
 const PATCH_MOVE = symbol('PATCH_MOVE')
 
-export const patches = { PATCH_CREATE, PATCH_REMOVE, PATCH_REPLACE_CONTENT, PATCH_REMOVE, PATCH_MOVE, PATCH_APPEND }
+export const patches = { PATCH_CREATE, PATCH_DELETE, PATCH_REPLACE_CONTENT, PATCH_MOVE, PATCH_APPEND }
 
 export const patchForFile = (action, path, changes = {}) => ({
   type: FILE,
