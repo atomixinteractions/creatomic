@@ -12,7 +12,11 @@ fs.recursiveCreateDirs('components/pages')
 // create atom
 fs.createFile('components/atoms/Example.js', '// template for atom')
 
-fs.createFile('components/modules/index.js')
+fs.createFile('modules/index.js')
+
+fs.appendToFile('components/atoms/Example.js', '\n// Appended content')
+
+fs.appendToFile('modules/example/atoms/FooBar.js', '#!/usr/bin/env node', true)
 
 fs.print()
 
@@ -35,4 +39,9 @@ console.log(
 console.log('')
 console.log('content of "components/atoms/Example.js"',
   fs.find('components/atoms/Example.js')
+)
+
+console.log('')
+console.log('content of "modules/example/atoms/FooBar.js"',
+  fs.find('modules/example/atoms/FooBar.js')
 )

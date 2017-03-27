@@ -12,7 +12,7 @@ export const dir = (name) => ({
   contents: {},
 })
 
-export const file = (name, content = null) => ({
+export const file = (name, content = '') => ({
   name,
   type: FILE,
   content,
@@ -36,20 +36,21 @@ export const simplify = node => {
 
 const PATCH_CREATE = symbol('PATCH_CREATE')
 const PATCH_REMOVE = symbol('PATCH_REMOVE')
-const PATCH_CHANGE_CONTENT = symbol('PATCH_CHANGE_CONTENT')
+const PATCH_REPLACE_CONTENT = symbol('PATCH_REPLACE_CONTENT')
+const PATCH_APPEND = symbol('PATCH_APPEND')
 const PATCH_RENAME = symbol('PATCH_RENAME')
 const PATCH_MOVE = symbol('PATCH_MOVE')
 
-export const patches = { PATCH_CREATE, PATCH_REMOVE, PATCH_CHANGE_CONTENT, PATCH_REMOVE, PATCH_MOVE }
+export const patches = { PATCH_CREATE, PATCH_REMOVE, PATCH_REPLACE_CONTENT, PATCH_REMOVE, PATCH_MOVE, PATCH_APPEND }
 
-export const patchForFile = (action, path, changes) => ({
+export const patchForFile = (action, path, changes = {}) => ({
   type: FILE,
   action,
   path,
-  changes
+  changes,
 })
 
-export const patchForDir = (action, path, changes) => ({
+export const patchForDir = (action, path, changes = {}) => ({
   type: DIRECTORY,
   action,
   path,

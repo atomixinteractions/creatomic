@@ -1,6 +1,17 @@
 import treeify from 'treeify'
 import defaultConfig from './defaultConfig'
-import { dir, file, escapePath, simplify, ROOT, DIRECTORY, FILE, patches, patchForDir, patchForFile } from './helpers'
+import {
+  ROOT,
+  FILE,
+  DIRECTORY,
+  dir,
+  file,
+  escapePath,
+  simplify,
+  patches,
+  patchForDir,
+  patchForFile,
+} from './helpers'
 
 
 /**
@@ -39,7 +50,7 @@ export default class VirtualFS {
    * @param {string} path
    * @param {any} content
    */
-  createFile(path, content) {
+  createFile(path, content = '') {
     const chunks = escapePath(path).split('/')
     const filename = chunks.pop()
 
@@ -89,8 +100,7 @@ export default class VirtualFS {
 
     while (chunks.length) {
       const chunk = chunks.shift()
-      console.log('chunk:', chunk)
-      console.log('  current:', current.name, '::', current.type)
+
       if (current.type === DIRECTORY) {
         if (current.contents[chunk]) {
           current = current.contents[chunk]
@@ -137,6 +147,24 @@ export default class VirtualFS {
 
   print() {
     console.log(treeify.asTree(simplify(this.tree), 2))
+  }
+
+  appendToFile(filePath, content, createIfNotFound = false) {
+    let file = this.find(filePath)
+
+    if (!file) {
+      if (createIfNotFound) {
+        this.createFile(filePath, content)
+        return true
+      }
+      else {
+        return false
+      }
+    }
+
+    file.content += content
+    this.patches.push(patchForFile(patches.PATCH_APPEND, filePath, content))
+    return true
   }
 
 }
