@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run clean && babel -d ./lib src",
-    "clean": "rimraf lib",
+    "clean": "rimraf lib demo",
     "dev": "nodemon -w src -w bin -x 'npm run build && node bin/testRun'"
   },
   "repository": {

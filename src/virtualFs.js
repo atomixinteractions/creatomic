@@ -169,7 +169,7 @@ export default class VirtualFS {
     }
 
     file.content += content
-    this.patches.push(patchForFile(patches.PATCH_APPEND, filePath, content))
+    this.patches.push(patchForFile(patches.PATCH_APPEND, filePath, { content }))
     return true
   }
 

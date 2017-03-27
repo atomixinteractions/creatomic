@@ -5,8 +5,10 @@ const y = chalk.yellow.bold
 const b = chalk.bold
 
 const VirtualFS = require('../lib/virtualFs').default
+const FSPatcher = require('../lib/fileSystemPatcher').default
 
 const fs = new VirtualFS()
+const patcher = new FSPatcher(fs)
 
 fs.recursiveCreateDirs('components/atoms')
 fs.recursiveCreateDirs('components/molecules')
@@ -56,3 +58,6 @@ console.log('')
 console.log('content of "modules/example/atoms/FooBar.js"',
   fs.find('modules/example/atoms/FooBar.js')
 )
+
+console.log('')
+console.log(patcher.getDiff())
