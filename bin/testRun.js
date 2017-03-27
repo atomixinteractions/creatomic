@@ -1,3 +1,8 @@
+const chalk = require('chalk')
+const g = chalk.green.bold
+const r = chalk.red.bold
+const y = chalk.yellow.bold
+const b = chalk.bold
 
 const VirtualFS = require('../lib/virtualFs').default
 
@@ -22,11 +27,12 @@ fs.appendToFile('components/atoms/Example.js', '\n// Appended content')
 fs.appendToFile('modules/example/atoms/FooBar.js', '#!/usr/bin/env node', true)
 
 fs.deleteFile('foo/baz/kaf/min.foo')
+fs.deleteDir('foo', true)
 
 fs.print()
 
 console.log('')
-fs.patches.forEach(p => console.log(p.action, p.type, p.path, p.changes))
+fs.patches.forEach(p => console.log(y(p.action), b(p.type), g('/' + p.path), p.changes))
 
 console.log('')
 console.log(

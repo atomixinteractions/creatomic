@@ -13,6 +13,12 @@ import {
   patchForFile,
 } from './helpers'
 
+const chalk = require('chalk')
+const g = chalk.green.bold
+const r = chalk.red.bold
+const y = chalk.yellow.bold
+const b = chalk.bold
+
 
 /**
  * @type {Object} GeneratorConfig
@@ -168,16 +174,15 @@ export default class VirtualFS {
   }
 
   deleteFile(path) {
-    let chunks = escapePath(path).split('/')
-    let filename = chunks.pop()
+    const chunks = escapePath(path).split('/')
+    const filename = chunks.pop()
 
     const containDir = this.find(chunks)
     if (!containDir) return false
 
     const file = containDir.contents[filename]
-    if (!file) return false
+    if (!file || file.type !== FILE) return false
 
-    // delete containDir[filename]
     const newContents = {}
     Object.keys(containDir.contents).forEach(name => {
       if (name === filename) return
@@ -187,6 +192,46 @@ export default class VirtualFS {
 
     this.patches.push(patchForFile(patches.PATCH_DELETE, path, { file }))
     return file
+  }
+
+  deleteDir(path, deleteContents = false) {
+    let chunks = escapePath(path).split('/')
+    const dirname = chunks.pop()
+
+    const parentDir = this.find(chunks)
+    if (!parentDir) return false
+
+    const dir = parentDir.contents[dirname]
+    if (!dir || dir.type !== DIRECTORY) return false
+
+    const childs = Object.keys(dir.contents)
+    const hasContents = childs.length != 0
+    if (!deleteContents && hasContents) {
+      return false
+    }
+
+    if (deleteContents && hasContents) {
+      childs.forEach(name => {
+        const child = dir.contents[name]
+        if (child.type === DIRECTORY) {
+          this.deleteDir(chunks.concat(dirname, name).join('/'), deleteContents)
+        }
+        else {
+          this.deleteFile(chunks.concat(dirname, name).join('/'))
+        }
+      })
+    }
+
+    const newContents = {}
+    Object.keys(parentDir.contents).forEach(name => {
+      if (name === dirname) return
+
+      newContents[name] = parentDir.contents[name]
+    })
+    parentDir.contents = newContents
+
+    this.patches.push(patchForDir(patches.PATCH_DELETE, path, { directory: dir }))
+    return dir
   }
 
 }
