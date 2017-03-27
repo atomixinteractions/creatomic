@@ -18,3 +18,21 @@ fs.print()
 
 console.log('')
 fs.patches.forEach(p => console.log(p.action, p.type, p.path, p.changes))
+
+console.log('')
+console.log(
+  'hasFile "components/modules/index.js"',
+  String(fs.hasFile('components/modules/index.js'))
+)
+
+console.log('')
+console.log(
+  'hasDir "components/atoms"',
+  String(fs.hasDir('components/atoms'))
+)
+
+
+console.log('')
+console.log('content of "components/atoms/Example.js"',
+  fs.find('components/atoms/Example.js')
+)

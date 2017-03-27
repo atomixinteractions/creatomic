@@ -79,12 +79,48 @@ export default class VirtualFS {
     return current
   }
 
+  find(path) {
+    let current = this.tree
+    let chunks = path
+
+    if (typeof path === 'string') {
+      chunks = escapePath(path).split('/')
+    }
+
+    while (chunks.length) {
+      const chunk = chunks.shift()
+      console.log('chunk:', chunk)
+      console.log('  current:', current.name, '::', current.type)
+      if (current.type === DIRECTORY) {
+        if (current.contents[chunk]) {
+          current = current.contents[chunk]
+          continue
+        }
+        return null
+      }
+      else {
+        // current.type === FILE
+        if (chunks.length === 0) {
+          break
+        }
+        else {
+          return null
+        }
+      }
+    }
+
+    return current
+  }
+
   /**
    *
    * @param {string} path
    * @return {boolean}
    */
   hasFile(path) {
+    const founded = this.find(path)
+
+    if (founded && founded.type === FILE) return true
     return false
   }
 
@@ -93,6 +129,9 @@ export default class VirtualFS {
    * @return {boolean}
    */
   hasDir(path) {
+    const founded = this.find(path)
+
+    if (founded && founded.type === DIRECTORY) return true
     return false
   }
 
