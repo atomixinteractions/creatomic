@@ -1,5 +1,4 @@
 import treeify from 'treeify'
-import defaultConfig from './default-config'
 import {
   ROOT,
   FILE,
@@ -41,7 +40,7 @@ export class VirtualFS {
 
 
   constructor(config = {}) {
-    this.config = Object.assign({}, defaultConfig, config)
+    this.config = config
   }
 
   addPatch(patch) {

@@ -5,6 +5,7 @@
  */
 const defaultConfig = {
   naming: {
+    root: 'app',
     components: 'components',
     atoms: 'atoms',
     molecules: 'molecules',

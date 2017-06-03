@@ -5,9 +5,10 @@ const y = chalk.yellow.bold
 const b = chalk.bold
 
 const { VirtualFS } = require('../dist/virtual-fs')
+const defaultConfig = require('../dist/default-config').default
 const { FileSystemDiffer } = require('../dist/file-system-differ')
 
-const fs = new VirtualFS()
+const fs = new VirtualFS(defaultConfig)
 
 fs.enabledPatches = false
 fs.touch('app/components/atoms/index.js')

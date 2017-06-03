@@ -24,6 +24,7 @@ npm install --global adr
 # /app/components/templates/index.js
 # /app/components/pages/index.js
 adr init
+# CWD='' adr init  # can be used to change working dir
 
 # Create simple atom <Button />
 # /app/components/atoms/Button/Button.js
