@@ -11,6 +11,9 @@ caporal
 
 caporal
   .command('init', 'Generate base atomic structure for your project')
+  .option('--ext <ext>', 'Default file extensions', /\w{2,}/, 'js')
+  .option('--case <case>', 'File naming case.', /^UpperCamelCase|lowerCamelCase|kebab-case|snake_case$/, 'UpperCamelCase')
+  .option('--index', 'Generate index file. Default: true', null, true)
   .action((args, options) => {
     console.log('INIT', args, options)
   })
@@ -24,14 +27,13 @@ caporal
     console.log('NEW MODULE', args, options)
   })
 
-caporal
-  .command(`new`, 'Create new component')
-  .argument('<type>', 'One of: atom, molecule, organism, template, page', typesAvailable)
-  .complete(() => typesAvailable)
-  .argument('<name>', `CamelCased name of your component, can have / to set module name`)
-  .option('--random', ';aasd')
-  .action((args, options, logger) => {
-    console.log(`NEW`, args, options)
-  })
+typesAvailable.forEach(type => {
+  caporal
+    .command(type, 'Generate new ' + type + ' component')
+    .argument('<ComponentName>', 'Name of the new component in UpperCamelCase')
+    .action((args, options, logger) => {
+      console.log({ args, options })
+    })
+})
 
 caporal.parse(process.argv)

@@ -31,7 +31,7 @@ const spacer = '            '
 
 
 
-export default class FileSystemPatcher {
+export class FileSystemDiffer {
   constructor(fileSystem) {
     this.patches = fileSystem.patches
   }

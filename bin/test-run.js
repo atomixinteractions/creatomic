@@ -4,11 +4,10 @@ const r = chalk.red.bold
 const y = chalk.yellow.bold
 const b = chalk.bold
 
-const VirtualFS = require('../lib/virtualFs').default
-const FSPatcher = require('../lib/fileSystemPatcher').default
+const { VirtualFS } = require('../dist/virtual-fs')
+const { FileSystemDiffer } = require('../dist/file-system-differ')
 
 const fs = new VirtualFS()
-const patcher = new FSPatcher(fs)
 
 fs.enabledPatches = false
 fs.touch('app/components/atoms/index.js')
@@ -16,15 +15,15 @@ fs.touch('app/components/molecules/index.js')
 fs.touch('app/components/organisms/index.js')
 fs.touch('app/components/templates/index.js')
 fs.touch('app/components/pages/index.js')
-fs.touch('app/modules/index.js')
-fs.recursiveCreateDirs('app/modules/example/atoms')
-fs.recursiveCreateDirs('app/modules/example/molecules')
-fs.recursiveCreateDirs('app/modules/example/organisms')
-fs.recursiveCreateDirs('app/modules/example/templates')
-fs.recursiveCreateDirs('app/modules/example/pages')
-fs.touch('app/modules/example/organisms/index.js')
-fs.createFile('app/modules/example/index.js', '// Module content')
-fs.appendToFile('app/modules/index.js', `export example from './example'`)
+// fs.touch('app/modules/index.js')
+// fs.recursiveCreateDirs('app/modules/example/atoms')
+// fs.recursiveCreateDirs('app/modules/example/molecules')
+// fs.recursiveCreateDirs('app/modules/example/organisms')
+// fs.recursiveCreateDirs('app/modules/example/templates')
+// fs.recursiveCreateDirs('app/modules/example/pages')
+// fs.touch('app/modules/example/organisms/index.js')
+// fs.createFile('app/modules/example/index.js', '// Module content')
+// fs.appendToFile('app/modules/index.js', `export example from './example'`)
 fs.enabledPatches = true
 
 
@@ -61,34 +60,34 @@ fs.enabledPatches = true
 // fs.deleteFile('foo/baz/kaf/min.foo')
 // fs.deleteDir('foo', true)
 
-fs.createFile('app/modules/example/organisms/Box/Box.js',
-`import React, { PropTypes, Component } from 'react'
-import css from './Box.css'
+// fs.createFile('app/modules/example/organisms/Box/Box.js',
+// `import React, { PropTypes, Component } from 'react'
+// import css from './Box.css'
 
-export default class Box extends Component {
-  render() {
-    return (
-      <div className={css.Box}>
-        Box organism content
-      </div>
-    )
-  }
-}
-`)
-fs.createFile('app/modules/example/organisms/Box/Box.css',
-`
-.Box {
-  display: flex;
-}
-`)
-fs.createFile('app/modules/example/organisms/Box/Box.md',
-`
-# Box
+// export default class Box extends Component {
+//   render() {
+//     return (
+//       <div className={css.Box}>
+//         Box organism content
+//       </div>
+//     )
+//   }
+// }
+// `)
+// fs.createFile('app/modules/example/organisms/Box/Box.css',
+// `
+// .Box {
+//   display: flex;
+// }
+// `)
+// fs.createFile('app/modules/example/organisms/Box/Box.md',
+// `
+// # Box
 
-# Usage
-`)
-fs.createFile('app/modules/example/organisms/Box/index.js', `export default from './Box`)
-fs.appendToFile('app/modules/example/organisms/index.js', `export Box from './Box`)
+// # Usage
+// `)
+// fs.createFile('app/modules/example/organisms/Box/index.js', `export default from './Box`)
+// fs.appendToFile('app/modules/example/organisms/index.js', `export Box from './Box`)
 
 
 console.log()
@@ -122,7 +121,9 @@ fs.print()
 //   fs.find('app/modules/example/atoms/FooBar.js')
 // )
 
-console.log('')
-console.log(patcher.getDiff())
+const differ = new FileSystemDiffer(fs)
+
+// console.log('')
+console.log(differ.getDiff())
 
 console.log('\n\n')

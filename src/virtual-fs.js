@@ -1,5 +1,5 @@
 import treeify from 'treeify'
-import defaultConfig from './defaultConfig'
+import defaultConfig from './default-config'
 import {
   ROOT,
   FILE,
@@ -21,10 +21,10 @@ const b = chalk.bold
 
 
 /**
- * @type {Object} GeneratorConfig
+ * @typedef {Object} GeneratorConfig
  */
 
-export default class VirtualFS {
+export class VirtualFS {
   /**
    * @member {GeneratorConfig}
    */
